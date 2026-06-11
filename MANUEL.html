@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Profesional </title>
+    <style>
+        /* --- Configuración General y Paleta de Colores --- */
+        :root {
+            --primary-color: #2c3e50; /* Azul oscuro institucional */
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c; /* Toque elegante de color */
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- Encabezado / Hero Section --- */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* --- Contenedor Principal --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Grid para Organización --- */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        /* --- Tarjeta Lateral (Información Básica) --- */
+        .sidebar-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            height: fit-content;
+        }
+
+        .avatar-container {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e2e8f0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-list {
+            text-align: left;
+            margin-top: 20px;
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .info-list strong {
+            color: var(--primary-color);
+        }
+
+        /* --- Secciones Interactivas (Acordeón) --- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .interactive-section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .interactive-section:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Botón del Acordeón */
+        .accordion-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+        }
+
+        .accordion-btn:hover {
+            background-color: rgba(44, 62, 80, 0.03);
+        }
+
+        /* Icono indicador (+ / -) */
+        .accordion-btn::after {
+            content: '+';
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+
+        .accordion-btn.active::after {
+            content: '−';
+        }
+
+        /* Contenido Oculto/Visible */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fafbfc;
+        }
+
+        .accordion-content-inner {
+            padding: 20px;
+            border-top: 1px solid #edf2f7;
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        /* --- Estilos para los Comentarios de Estudiantes --- */
+        .comment-box {
+            background: #ffffff;
+            border-left: 3px solid var(--accent-color);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .comment-box p {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .comment-box span {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            text-align: right;
+        }
+
+        /* --- Sección de Notas / Futuras Adiciones --- */
+        .future-adds {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Pie de Página --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Manuel Islas Sanchez</h1>
+        <p>"Una gran persona dedicada a la formación académica y la excelencia profesional"</p>
+    </header>
+
+    <div class="container">
+        <div class="profile-grid">
+            
+            <aside class="sidebar-card">
+                <div class="avatar-container">
+                    <img src="manuel.jpge" "C:\Users\angel\Downloads" alt="Foto del Profesor Manuel">
+                </div>
+                <h3>Datos Generales</h3>
+                <ul class="info-list">
+                    <li><strong>Fecha de Nacimiento:</strong> 14 de noviembre de 1967</li>
+                    <li><strong>Origen:</strong> Distrito Federal (ahora CDMX)</li>
+                    <li><strong>Pasatiempos:</strong> Hacer ejercicio por las mañanas, leer literatura técnica y descansar plácidamente en sus horas libres.</li>
+                </ul>
+            </aside>
+
+            <main class="main-content">
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Gustos Personales</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            En sus tiempos libres y de convivencia social, disfruta principalmente de comer sabroso, explorar la gastronomía tradicional, apreciar una buena comida casera y pasar momentos de calidad invaluables paseando y viajando al lado de su familia.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Trayectoria e Historia Profesional</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Su incursión en el ámbito docente fue impulsada inicialmente por la necesidad de trabajar y salir adelante. Antes de dedicarse de lleno a la enseñanza, ejerció activamente en la industria trabajando como <strong>Ingeniero</strong>, aportando una valiosa experiencia práctica y técnica que más tarde trasladó a las aulas para enriquecer el aprendizaje de sus estudiantes con retos del mundo real.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Habilidades Ocultas</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Más allá de las complejas fórmulas matemáticas, la ingeniería y los libros de apuntes, posee un talento deportivo particular: comparte con mucho orgullo que sabe jugar muy bien al fútbol, destacando por su visión táctica y buena condición física en la cancha.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Perspectiva Docente y Alumnos</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            Reconoce de manera abierta y con humor que sus alumnos suelen percibirlo como un docente duro, riguroso y muy estricto. Sin embargo, su enfoque principal sigue firme en impartir sus asignaturas con los más altos estándares formativos, asegurándose de que cada estudiante desarrolle un verdadero pensamiento analítico.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Comentarios de Estudiantes</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            
+                            <div class="comment-box">
+                                <p>"Es verdad que al principio asusta un poco porque sus clases son muy demandantes y es estricto con la disciplina, pero explica de una forma excelente. Su experiencia como ingeniero se nota muchísimo y nos prepara de verdad para lo que viene."</p>
+                                <span>- Jose Luis Calderon Baltazar</span>
+                            </div>
+
+                            <div class="comment-box">
+                                <p>"Al profesor Manuel no se le escapa una, te exige dar el cien por ciento en cada trabajo. Aunque es duro evaluando, siempre tiene la disposición de explicarte las veces que sea necesario si nota que tienes ganas de aprender."</p>
+                                <span>- Guerra Gonzales Oscar</span>
+                            </div>
+
+                            <div class="comment-box">
+                                <p>"Un gran maestro en toda la extensión de la palabra. Su carácter firme nos hace ser más responsables con las tareas y proyectos. Definitivamente es de los profesores que dejan una huella positiva."</p>
+                                <span>- Ortega Moreno Carlos</span>
+                            </div>
+
+                            <div class="comment-box">
+                                <p>"Es un docente muy estricto y con un estándar alto, pero es justo lo que se necesita para aprender bien. Sabe transmitir sus conocimientos con mucha claridad y se preocupa genuinamente por nuestro futuro académico."</p>
+                                <span>- Perea Rosas Angel Jovani</span>
+                            </div>
+
+                            <div class="comment-box">
+                                <p>"Sus clases son un reto constante. Te saca de tu zona de confort, pero la satisfacción de entender sus materias vale completamente la pena. Es un excelente profesor y una gran persona."</p>
+                                <span>- Comunidad Estudiantil</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-section">
+                    <button class="accordion-btn">Mensaje y Consejo para Estudiantes</button>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <blockquote>
+                                "El consejo que yo les daría es que no desistan. Aunque a veces las situaciones se tornen difíciles o los temas parezcan complejos, que no desistan jamás en el empeño de seguir adelante hacia sus metas."
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Proyecto de Paginas Web - Preparatoria 115</p>
+    </footer>
+
+    <script>
+        const accordionButtons = document.querySelectorAll('.accordion-btn');
+
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                button.classList.toggle('active');
+
+                if (button.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = "0px";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
